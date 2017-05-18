@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+
+echo "from bash $hh"
 os=$(uname)
 sudo=''
 if [ "$os" = 'Darwin' ]; then
@@ -14,6 +16,9 @@ fi
 
 # https://github.com/ellisonbg/antipackage
 pip install git+https://github.com/ellisonbg/antipackage.git#egg=antipackage
+
+export PATH=$PATH:/usr/local/go/bin
+
 go get -u golang.org/x/tools/cmd/goimports
 go get -u github.com/sgotti/glide-vc
 curl https://glide.sh/get | sh

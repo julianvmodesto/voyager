@@ -4,15 +4,24 @@ node("master") {
     stage("set env") {
         env.GOPATH = "${PWD}"
         env.GOBIN = "${GOPATH}/bin"
-        env.PATH = "$env.PATH:${env.GOBIN}"
+        env.PATH = "$env.PATH:${env.GOBIN}:/usr/local/go/bin"
         sh "mkdir -p ${env.GOBIN}"
     }
     dir("${project_dir}") {
+        stage("test") {
+            sh "export hh=333333 && printenv"
+        }
+        stage("test1") {
+            sh 'echo $hh'
+        }
+        stage("Test3") {
+            sh "printenv"
+        }
         stage("checkout") {
             checkout scm
         }
         stage("builddeps") {
-            sh "./hack/builddeps.sh"
+            sh "sudo ./hack/builddeps.sh"
         }
         stage("dependency") {
             sh "glide slow"
